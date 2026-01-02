@@ -1,0 +1,333 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymGenie</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "3F5T7g4jF6xbrW6N1",
+      });
+   })();
+</script>
+
+<script src="{% static 'script.js' %}"></script>
+<script>
+    function showShoulder () {
+        alert("SHoulder is clicked1;")
+    }
+</script>
+
+</head>
+<body>
+
+    <header>
+        <a href="#home" class="logo-image">
+            <img src="{% static 'images\logo.png' %}" alt="Gym Logo" class="logo-img">
+            
+        </a>
+
+        <a href="#home" class="logo">GymGenie</a>
+    
+        <div class='bx bx-menu' id="menu-icon"></div> <!-- Only ONE menu icon -->
+    
+        <ul class="navbar">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#plans">Plans</a></li>
+            <li><a href="#review">Review</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    
+        <div class="top-btn">
+            <a href="{% url 'login' %}" class="nav-btn">Login</a>
+        </div>
+    </header>
+
+    {% comment %} Home Section {% endcomment %}
+    {% block content %}
+
+    <section class="home" id="home">
+        <div class="home-content" data-aos="zoom-in">
+
+            <h3>We'll guide your grind</h3>
+            <h1>From Beginner to Beast Mode</h1>
+            <h3>><span class="multiple-text">BodyBuilding</span>
+             
+            <p> Build your Dream Physique, GymGenie fuels <br>your journey with expert plans, motivation,<br> and tools to transform your mindset and physique.</p>
+            
+            <a href="#plans" class="btn">Join Us</a>
+
+            
+        </div>
+        <div class="home-img" data-aos="zoom-in">
+            <img src="{% static 'images\img1.png' %}" alt="Home Image">
+        </div>
+        </div>
+    </section>
+
+
+        {% comment %} Services Section Code {% endcomment %}
+
+    <section class="services" id="services">
+            <h2 class="heading" data-aos="zoom-in-down"> Our <span>Services</span></h2>
+
+            <div class="services-content" data-aos="zoom-in-up">
+                <div class="row">
+                    <a href="{% url 'weight_gain' %}" style="text-decoration: none; color: inherit; ">
+                        <img src="{% static 'images/img2.jpg' %}" alt="Weight Gain">
+                        <h4 style="font-size: 25px;">Weight Gain</h4>
+                    </a>
+                </div>
+
+
+                <div class="row">
+                    <div style="position: relative;">
+                        <div id="shoulder" onclick="showShoulder()" style="height: 10px; width: 10px; position: absolute; background-color: #c68642; top: 40%; left: 55%; border-radius: 50%;"></div>
+                        <img src="{% static 'images\img3.jpg' %}" alt="Fatt Loss<">
+                    </div>
+                    <h4 style="font-size: 25px;">Fatt Loss</h4>
+                </div>
+
+                <div class="row">
+                    <img src="{% static 'images\img4.jpg' %}" alt="Physical Strength ">
+                    <h4 style="font-size: 25px;">Physical Strength </h4>
+                </div>
+
+                <div class="row">
+                    <img src="{% static 'images\img9.jpg' %}" alt="Home Workout">
+                    <h4 style="font-size: 25px;">Home Workout </h4>
+                </div>
+
+                <div class="row">
+                    <img src="{% static 'images\img6.jpg' %}" alt="Personalized Workout Plans">
+                    <h4 style="font-size: 25px;">Personalized Workout Plans </h4>
+                </div>
+
+                <div class="row">
+                    <img src="{% static 'images\img7.jpg' %}" alt="Nutrition Coaching ">
+                    <h4 style="font-size: 25px;">Personalized AI support </h4>
+                </div>
+        </section>
+             
+     <!-- About Section Code -->           
+
+     <section class="about" id="about">
+        <div class="about-img" data-aos="zoom-in-down">
+            <img src="{% static 'images/img4.jpg' %}" alt="Nutrition Coaching">
+        </div>
+    
+        <div class="about-content" data-aos="zoom-in-up">
+            <h2 class="heading">Why Choose <span>GymGenie</span>?</h2>
+    
+            <p>
+                At <strong>GymGenie</strong>, we’re more than just workouts — we’re your partner in transformation. Whether you're sculpting muscle, shedding fat, or just starting out, our expert-crafted programs, nutrition guidance, and real progress tracking keep you on the path to success.
+            </p>
+    
+            <ul>
+                <li>✔️ Custom workout & meal plans tailored to your goals</li>
+                <li>✔️ Personalized AI support</li>
+                <li>✔️ Workout anywhere — at home or in the gym</li>
+                <li>✔️ Proven, science-backed fitness strategies</li>
+            </ul>
+    
+            <a href="#plans" class="btn">Start Your Journey</a>
+        </div>
+    </section>
+    
+    <!-- Pricing Section Code-->
+
+    <section class="plans" id="plans">
+        <h2 class="heading" data-aos="zoom-in-down"> Our <span>Plans</span>
+
+            <div class="plans-content" data-aos="zoom-in-up">
+
+                
+
+                <div class="box">
+                    <h2>₹199/Month</h2>
+                    <ul>
+                        <li>Basic Workout Plan</li>
+                        <li>Home Workout</li>
+                        <li>Gym Workout</li>
+                        <li><span>Personal AI Assistent</span> </li>
+                        <li>Personal Growth Track </li>
+                        <li>24x7 AI Support </li>
+                    </ul>
+                    <a href="{% url 'join_plan' 'basic' %}" class="btn">
+                        Join Now
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </a>
+                </div>
+
+                <div class="box">
+                    <h2>₹499/ 3 Months</h2>
+                    <ul>
+                        <li>Premium Workout Plan</li>
+                        <li>Home Workout</li>
+                        <li>Gym Workout</li>
+                        <li><span>Personal AI Assistent</span> </li>
+                        <li>Personal Growth Track </li>
+                        <li>24x7 AI Support </li>
+                    </ul>
+                    <a href="{% url 'join_plan' 'premium' %}" class="btn">
+                        Join Now
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </a>
+                </div>
+
+                <div class="box">
+                    <h2>₹899/ 6 Months</h2>
+                    <ul>
+                        <li>Smart Workout Plan</li>
+                        <li>Home Workout</li>
+                        <li>Gym Workout</li>
+                        <li><span>Personal AI Assistent</span> </li>
+                        <li>Personal Growth Track </li>
+                        <li>24x7 AI Support </li>
+                    </ul>
+                    <a href="{% url 'join_plan' 'pro' %}" class="btn">
+                        Join Now
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </a>
+                </div>
+            </div>
+    </section>
+
+
+    <!-- Review Section Code -->
+
+    <section class="review" id="review">
+        <div class="review-box">
+            <h2 class="heading" data-aos="zoom-in-down">Client <span>Reviews</span>
+
+            <div class="wrapper" data-aos="zoom-in-up">
+                <div class="wrapper-item">
+                    <img src="{% static 'images/img10.webp' %}" alt="" >
+                    <h2>Om</h2>
+                    <div class="rating">
+                        <i class="bx bxs-star"  id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                    </div>
+                    <p>GymGenie helped me completely transform my fitness journey. 
+                        Their personalized plans made it easy to stay consistent, and the progress I’ve seen is unreal!</p>
+                </div>
+
+                <div class="wrapper-item">
+                    <img src="{% static 'images/img7.png' %}" alt="" >
+                    <h2>Ayush</h2>
+                    <div class="rating">
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                    </div>
+                    <p>I never thought I’d enjoy working out, but GymGenie changed that.
+                         The structure, support, and flexibility are exactly what I needed to stay on track.</p>
+                    </div>
+
+
+                <div class="wrapper-item">
+                    <img src="{% static 'images/img7.png' %}" alt="" >
+                    <h2>Soham</h2>
+                    <div class="rating">
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                        <i class="bx bxs-star" id="star"></i>
+                    </div>
+                    <p>I’ve tried so many fitness apps, but none come close to GymGenie. 
+                        The plans are effective and easy to follow, and I feel stronger and more motivated every day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+       <!-- Contact Section Code -->
+    <section class="contact" style="background-color: var(--snd-bgcolor);" id="contact">
+        <h2 class="heading" " data-aos="zoom-in-up">Contact <span>Us</span>
+
+        <div class="contact-container"  data-aos="zoom-in-down" style="background: var(--bg-color); padding: 3rem; border-radius: 1.5rem; box-shadow: 0 0 2rem var(--main-color); width: 90%; max-width: 450px; margin: 2rem auto; ">
+            <h2 style="text-align: center; color: var(--main-color); margin-bottom: 2rem; font-size: 3.5rem;">Contact Us</h2>
+            <form id="contact-form" method="POST" style="display: flex; flex-direction: column;">
+                {% csrf_token %}
+                <input type="text" id="name" name="name" placeholder="Your Name" required style="background: transparent; border: 2px solid var(--main-color); padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.8rem; color: white; font-size: 1.6rem;">
+                <input type="email" id="email" name="email" placeholder="Your Email" required style="background: transparent; border: 2px solid var(--main-color); padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.8rem; color: white; font-size: 1.6rem;">
+                <input type="text" id="subject" name="subject" placeholder="Subject" required style="background: transparent; border: 2px solid var(--main-color); padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.8rem; color: white; font-size: 1.6rem;">
+                <textarea name="message" id="message" placeholder="Your Feedback or Query" required style="background: transparent; border: 2px solid var(--main-color); padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.8rem; color: white; font-size: 1.6rem; min-height: 100px; resize: vertical;"></textarea>
+                <button type="submit" style="padding: 1rem; background-color: var(--main-color); color: var(--bg-color); font-size: 1.6rem; font-weight: bold; border: none; border-radius: 0.8rem; cursor: pointer; transition: 0.3s ease;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    {% comment %} Footer Section Code {% endcomment %}
+    {% endblock %}
+
+
+    <footer class="footer" style="background-color: var(--bg-color);">
+        <div class="social">
+            <a href="#"><i class="bx bxl-facebook"></i></a>
+            <a href="#"><i class="bx bxl-instagram"></i></a>
+            <a href="#"><i class="bx bxl-linkedin"></i></a>
+        </div>
+
+
+        <p class="copyright">
+            &copy; GymGenie 2025 - All Rights Reserved
+        </p>
+    </footer>
+
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+        offset : 300,
+        duration : 1400,
+    });
+  </script>
+
+    <!-- EmailJS SDK (v4+) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    emailjs.init({
+      publicKey: "3F5T7g4jF6xbrW6N1" // Replace with your actual Public Key
+    });
+
+    const form = document.getElementById("contact-form");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        emailjs.sendForm("service_pt6vjwx", "template_m53n0ze", form)
+          .then(() => {
+            alert("Message sent successfully!");
+            form.reset();
+          }, (error) => {
+            alert("Failed to send message. Please try again.");
+            console.error("EmailJS error:", error);
+          });
+      });
+    }
+  });
+</script>
+
+
+ 
+            
+</body>
+</html>

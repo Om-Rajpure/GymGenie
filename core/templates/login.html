@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GymGenie</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .auth-container {
+            background: var(--snd-bgcolor);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 2rem var(--main-color); 
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .auth-container h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--main-color);
+            margin-bottom: 2rem;
+        }
+
+        .auth-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-container input {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--main-color);
+            border-radius: 0.8rem;
+            background: transparent;
+            color: var(--text-color);
+            font-size: 1.6rem;
+        }
+
+        .auth-container input::placeholder {
+            color: #aaa;
+        }
+
+        .auth-container .btn {
+            background: var(--main-color);
+            color: var(--bg-color);
+            font-size: 1.6rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .auth-container .btn:hover {
+            background: transparent;
+            border: 2px solid var(--main-color);
+            color: var(--main-color);
+        }
+
+        .auth-container .switch {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .auth-container .switch a {
+            color: var(--main-color);
+            text-decoration: none;
+        }
+
+        .auth-container .switch a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <h2>Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="switch">
+            Don't have an account? <a href="{% url 'signup' %}">Sign up here</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .content-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 150px);
+        padding: 2rem;
+    }
+
+    .progress-container {
+        background: var(--snd-bgcolor);
+        padding: 3rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0 2rem var(--main-color);
+        width: 100%;
+        margin-top: 12rem;
+        max-width: 600px;
+    }
+
+    .progress-container h2 {
+        text-align: center;
+        color: var(--main-color);
+        margin-bottom: 2rem;
+        font-size: 3.5rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        color: var(--main-color);
+    }
+
+    input[type="number"],
+    input[type="file"] {
+        background: transparent;
+        border: 2px solid var(--main-color);
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 0.8rem;
+        color: blueviolet;
+        font-size: 1.6rem;
+    }
+
+    input[type="submit"] {
+        padding: 1rem;
+        background-color: var(--main-color);
+        color: var(--bg-color);
+        font-size: 1.6rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 0.8rem;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background: transparent;
+        color: var(--main-color);
+        border: 2px solid var(--main-color);
+    }
+
+    .history {
+        margin-top: 3rem;
+    }
+
+    .history h3 {
+        color: var(--main-color);
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .entry {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--main-color);
+        font-size: 1.4rem;
+    }
+
+    .entry img {
+        max-width: 120px;
+        margin-top: 1rem;
+        border-radius: 0.8rem;
+        border: 2px solid var(--main-color);
+    }
+
+    .thumbnail {
+        max-width: 200px;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: 10px;
+        transition: transform 0.3s;
+    }
+
+    .thumbnail:hover {
+        transform: scale(1.05);
+    }
+
+    #lightboxModal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 60px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    #lightboxImage {
+        display: block;
+        margin: auto;
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 10px;
+    }
+
+    #closeBtn {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="progress-container">
+        <h2>Track Progress</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="{{ form.weight.id_for_label }}">{{ form.weight.label }}</label>
+            {{ form.weight }}
+
+            <label for="{{ form.photo.id_for_label }}">{{ form.photo.label }}</label>
+            {{ form.photo }}
+
+            <input type="submit" value="Save Progress">
+        </form>
+
+        {% if progress_entries %}
+        <div class="history">
+            <h3>Your Progress History</h3>
+            {% for entry in progress_entries %}
+                <div class="entry">
+                    <strong>Date:</strong> {{ entry.date|date:"F j, Y, g:i a" }}<br>
+                    <strong>Weight:</strong> {{ entry.weight }} kg<br>
+                    {% if entry.photo %}
+                        <div class="lightbox-container">
+                            <img src="{{ entry.photo.url }}" alt="Progress Photo" class="thumbnail" onclick="openLightbox(this)">
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Lightbox Modal HTML -->
+<div id="lightboxModal">
+    <span id="closeBtn" onclick="closeLightbox()">&times;</span>
+    <img id="lightboxImage" src="">
+</div>
+
+<script>
+    function openLightbox(img) {
+        const modal = document.getElementById('lightboxModal');
+        const lightboxImage = document.getElementById('lightboxImage');
+        modal.style.display = "block";
+        lightboxImage.src = img.src;
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightboxModal').style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('lightboxModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+    });
+</script>
+{% endblock %}

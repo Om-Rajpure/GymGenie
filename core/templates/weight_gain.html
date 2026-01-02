@@ -1,0 +1,391 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+.headline span{
+  font-size: 5rem;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  background: lightblue;
+  outline: 1px solid red;
+}
+
+/* Shared section styles */
+.weight, .diet, .supplements, .tips, .track-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--snd-bgcolor);
+    border-radius: 1.5rem;
+    padding: 2rem 1rem 4rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(243, 245, 245, 0.65);
+    box-sizing: border-box;
+    /* Let height adjust naturally */
+    height: auto;
+}
+
+/* Heading container */
+.head {
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+/* Main headings */
+h3 {
+    font-size: clamp(2rem, 4vw, 3.5rem); /* responsive font size */
+    color: var(--main-color);
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Sub-headings */
+h4 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: purple;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* Paragraphs */
+p {
+    font-size: clamp(1.2rem, 2vw, 1.9rem);
+    color: var(--text-color);
+    margin-top: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Lists */
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+li {
+    font-size: clamp(1.2rem, 1.5vw, 1.7rem);
+    margin-bottom: 0.6rem;
+}
+
+/* Tables */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: clamp(1rem, 1.2vw, 1.8rem);
+}
+
+.table th, .table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table th {
+    font-weight: 700;
+    color: purple;
+    border-radius: 20px;
+    background-color: var(--table-header-bg,rgb(61, 53, 53));
+}
+
+/* Buttons */
+.plan-btn {
+    border: 2px solid;
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: var(--bg-color);
+    border-radius: 1rem;
+    box-shadow: none;
+    font-size: 1.6rem;
+    color: var(--main-color);
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+    transition: 0.5s ease;
+}
+
+.plan-btn:hover, .plan-btn:focus {
+    color: var(--text-color);
+    box-shadow: 0 0 1.6rem var(--main-color);
+}
+
+/* Supplements specific styles */
+.supplement {
+    margin-bottom: 3rem;
+}
+
+.supplement ul {
+    font-size: clamp(1.2rem, 1.5vw, 1.8rem);
+    margin-top: 0.4rem;
+}
+
+.supplement p {
+    margin-bottom: 0.6rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+    .weight-gain {
+        padding: 1rem 0.5rem 2rem;
+        margin-top: 6rem; /* reduce top margin on smaller screens */
+    }
+
+    .weight, .diet, .supplements, .tips, .track-progress {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
+        max-width: 100%;
+    }
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    h4 {
+        font-size: 1.5rem;
+    }
+
+    .plan-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.2rem;
+    }
+}
+
+
+</style>
+
+<h2 class="headline">Our <span>Plans</span></h2>
+
+
+<section class="weight-gain">
+  <section class="weight" style="margin: 1.8rem;" id="weight">
+    <div class="head">
+      <h3>🏋️ Weekly Workout Plan</h3>
+      <p>Choose your preferred workout split for size, strength, and structure:</p>
+    </div>
+
+    <!-- Push-Pull-Legs Table -->
+    <div style="max-width: 600px; margin: 0 auto 3rem auto;">
+      <h4 style="text-align: center; color: var(--main-color); margin-bottom: 1rem;">Push-Pull-Legs (PPL)</h4>
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Workout Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td><td>Push (Chest, Shoulders, Triceps)</td></tr>
+          <tr><td>Tuesday</td><td>Pull (Back, Biceps)</td></tr>
+          <tr><td>Wednesday</td><td>Legs + Core</td></tr>
+          <tr><td>Thursday</td><td>Push (Chest, Shoulders, Triceps)</td></tr>
+          <tr><td>Friday</td><td>Pull (Back, Biceps)</td></tr>
+          <tr><td>Saturday</td><td>Legs + Full Body</td></tr>
+          <tr><td>Sunday</td><td>Rest / Active Recovery</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Bro Split Table -->
+    <div style="max-width: 600px; margin: 0 auto;">
+      <h4 style="text-align: center; color: var(--main-color); margin-bottom: 1rem;">Bro Split</h4>
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Workout Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td><td>Chest</td></tr>
+          <tr><td>Tuesday</td><td>Back</td></tr>
+          <tr><td>Wednesday</td><td>Shoulders</td></tr>
+          <tr><td>Thursday</td><td>Legs</td></tr>
+          <tr><td>Friday</td><td>Arms (Biceps & Triceps)</td></tr>
+          <tr><td>Saturday</td><td>Rest / Active Recovery</td></tr>
+          <tr><td>Sunday</td><td>Rest</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+</section>
+
+
+
+<section class="diet">
+    <div class="head">
+        <h3>🥗 Diet Plan for Weight Gain</h3>
+        <p>Fuel your gains with a balanced diet (Protein & Calories approx. shown):</p>
+    </div>
+
+    <ul>
+        <li><strong>Breakfast:</strong> 
+            <ul>
+                <li>Regular: Oats + banana + peanut butter + milk (Protein: 20g, Calories: 400)</li>
+                <li>Vegan: Oats + banana + peanut butter + almond milk (Protein: 18g, Calories: 380)</li>
+            </ul>
+        </li>
+        <li><strong>Snack:</strong>
+            <ul>
+                <li>Regular: Boiled eggs + almonds (Protein: 15g, Calories: 250)</li>
+                <li>Vegan: Roasted chickpeas + almonds (Protein: 14g, Calories: 240)</li>
+            </ul>
+        </li>
+        <li><strong>Lunch:</strong> 
+            <ul>
+                <li>Regular: Rice + chicken curry + veggies + curd (Protein: 35g, Calories: 700)</li>
+                <li>Vegan: Rice + lentil curry + veggies + vegan yogurt (Protein: 30g, Calories: 680)</li>
+            </ul>
+        </li>
+        <li><strong>Evening:</strong> 
+            <ul>
+                <li>Regular: Banana shake + protein bar (Protein: 25g, Calories: 350)</li>
+                <li>Vegan: Banana shake (with pea protein) + vegan protein bar (Protein: 25g, Calories: 350)</li>
+            </ul>
+        </li>
+        <li><strong>Dinner:</strong> 
+            <ul>
+                <li>Regular: Paneer/tofu + whole wheat roti + salad (Protein: 30g, Calories: 600)</li>
+                <li>Vegan: Tofu + whole wheat roti + salad (Protein: 28g, Calories: 580)</li>
+            </ul>
+        </li>
+        <li><strong>Bedtime:</strong> 
+            <ul>
+                <li>Regular: Warm milk + soaked nuts (optional) (Protein: 10g, Calories: 200)</li>
+                <li>Vegan: Warm almond/oat milk + soaked nuts (Protein: 8g, Calories: 180)</li>
+            </ul>
+        </li>
+    </ul>
+
+</section>
+
+
+<section class="tips" style="margin-top: 3rem; text-align: center;">
+
+    <div class="head">
+        <h3>💡 Tips for Effective Weight Gain</h3>
+        <p>Maximize your results with these strategies:</p>
+    </div>
+
+    <ul style="list-style: none; padding-left: 0; font-size: 1.8rem; color: var(--text-color); max-width: 700px; margin: 0 auto; text-align: left;">
+    <li>✔️ Eat more calories than you burn daily</li>
+    <li>✔️ Sleep 7–8 hours every night for recovery</li>
+    <li>✔️ Focus on compound lifts (bench press, deadlifts, squats)</li>
+    <li>✔️ Track your weekly progress consistently</li>
+    <li>✔️ Include healthy fats like nuts and avocado in your diet</li>
+    <li>✔️ Stay hydrated throughout the day</li>
+    <li>✔️ Eat protein-rich meals every 3-4 hours</li>
+    <li>✔️ Use calorie-dense snacks to boost intake</li>
+    <li>✔️ Avoid excessive cardio that burns too many calories</li>
+    <li>✔️ Manage stress through meditation or relaxation</li>
+    <li>✔️ Supplement wisely (protein, creatine) if needed</li>
+    <li>✔️ Keep a workout journal for motivation and adjustment</li>
+    <li>✔️ Warm up properly to prevent injury</li>
+    <li>✔️ Gradually increase weights and intensity over time</li>
+    <li>✔️ Stay consistent and patient; results take time</li>
+  </ul>
+
+  <p style="margin-top: 1.5rem; font-size: 1.6rem; font-style: italic;">
+    Remember, consistency is key! Adjust your diet and workout based on your progress.
+  </p>
+</section>
+
+<section class="track-progress" style="margin-top: 3rem; text-align: center;">
+  <div class="head">
+    <h3>📈 Track Your Progress</h3>
+    <p>Stay motivated and achieve your fitness goals by regularly monitoring your weight, strength, and overall progress.</p>
+  </div>
+
+  <ul style="list-style: none; padding-left: 0; font-size: 1.8rem; color: var(--text-color); max-width: 700px; margin: 0 auto; text-align: left;">
+    <li>✅ <strong>Comprehensive Tracking:</strong> Record your weight, body measurements, and strength gains easily in one place.</li>
+    <li>✅ <strong>Progress Photos:</strong> Upload and compare photos over time to visually see your transformation.</li>
+    <li>✅ <strong>Weekly and Monthly Reports:</strong> Receive detailed summaries to analyze your progress trends and adjust your plan accordingly.</li>
+    <li>✅ <strong>Goal Setting:</strong> Set realistic and personalized milestones for weight, strength, and muscle gain.</li>
+    <li>✅ <strong>Motivation Boost:</strong> Seeing your progress helps you stay consistent and committed to your fitness journey.</li>
+    <li>✅ <strong>Adjust Your Plan:</strong> Use your data to identify what works best and optimize your diet and workouts for better results.</li>
+    <li>✅ <strong>Community Support:</strong> Share achievements and get encouragement from others (if integrated).</li>
+  </ul>
+
+  <a href="{% url 'track_progress' %}" class="plan-btn" style="margin-top: 1.5rem;">Track Your Progress</a>
+
+  <p style="margin-top: 1rem; font-size: 1.6rem; font-style: italic;">
+    Consistent tracking is the key to smarter training and faster gains. Upload your progress photos and data regularly to unlock your full potential!
+  </p>
+</section>
+
+
+<section class="supplements">
+    <div class="head">
+        <h3>💊 Recommended Supplements (Optional)</h3>
+        <p>Boost your gains with these commonly used fitness supplements.</p>
+    </div>
+
+    <div class="supplement">
+        <h4>1. Whey Protein</h4>
+        <p><strong>Purpose:</strong> Fast-digesting protein for muscle repair and growth.</p>
+        <ul>
+            <li><strong>✅ Pros:</strong> Quick recovery, high-quality protein, easy to use.</li>
+            <li><strong>❌ Cons:</strong> May cause bloating if lactose intolerant.</li>
+            <li><strong>⏰ When to Take:</strong> Right after workout or as a snack during the day.</li>
+        </ul>
+    </div>
+
+    <div class="supplement">
+        <h4>2. Creatine Monohydrate</h4>
+        <p><strong>Purpose:</strong> Enhances strength, endurance, and muscle performance.</p>
+        <ul>
+            <li><strong>✅ Pros:</strong> Boosts strength, helps muscle gain, safe & well-researched.</li>
+            <li><strong>❌ Cons:</strong> May cause water retention; requires consistency.</li>
+            <li><strong>⏰ When to Take:</strong> Daily (preferably post-workout with food).</li>
+        </ul>
+    </div>
+
+    <div class="supplement">
+        <h4>3. Mass Gainers</h4>
+        <p><strong>Purpose:</strong> High-calorie blends to help those who struggle to eat enough.</p>
+        <ul>
+            <li><strong>✅ Pros:</strong> Helps hard-gainers add mass, convenient calories + protein.</li>
+            <li><strong>❌ Cons:</strong> May contain sugar; overuse can lead to fat gain.</li>
+            <li><strong>⏰ When to Take:</strong> Post-workout, between meals, or before bed if needed.</li>
+        </ul>
+    </div>
+</section>
+
+
+</section>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

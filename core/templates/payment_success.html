@@ -1,0 +1,101 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+    .payment-container {
+        max-width: 500px;
+        margin: 60px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .plan-details {
+        margin-bottom: 25px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #333;
+    }
+
+    .pay-btn {
+        background-color: #28a745;
+        color: #fff;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .pay-btn:hover {
+        background-color: #218838;
+    }
+
+    .note {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+<div class="payment-container">
+    <h2>Confirm Your Plan</h2>
+
+    <div class="plan-details">
+        <p><strong>Selected Plan:</strong> {{ plan_name }}</p>
+        <p><strong>Price:</strong> ₹{{ plan_price }}</p>
+        <p><strong>Validity:</strong> {{ plan_duration }} Days</p>
+    </div>
+
+    <!-- ✅ NEW Razorpay Button (Replaces old form) -->
+    <button class="pay-btn" onclick="payWithRazorpay()">Pay with Razorpay</button>
+
+    <div class="note">
+        <p>After payment, your membership will be valid for {{ plan_duration }} days.</p>
+    </div>
+</div>
+
+<!-- ✅ Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- ✅ Razorpay Payment Handler -->
+<script>
+    function payWithRazorpay() {
+        var options = {
+            "key": "{{ razorpay_key_id }}",  // passed from view
+            "amount": "{{ plan_price|add:'0' }}00",  // convert ₹ to paise
+            "currency": "INR",
+            "name": "GymGenie",
+            "description": "{{ plan_name }} Plan",
+            "handler": function (response) {
+                // ✅ Send payment info to server to update validity
+                fetch("/payment/success/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        plan_key: "{{ plan_key }}"
+                    })
+                }).then(res => {
+                    if (res.ok) {
+                        window.location.href = "/payment/success/";
+                    } else {
+                        alert("Something went wrong. Payment not verified.");
+                    }
+                });
+            },
+            "theme": {
+                "color": "#28a745"
+            }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+    }
+</script>

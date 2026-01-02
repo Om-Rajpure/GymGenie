@@ -1,0 +1,101 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+    .payment-container {
+        max-width: 500px;
+        margin: 60px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .plan-details {
+        margin-bottom: 25px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #333;
+    }
+
+    .pay-btn {
+        background-color: #28a745;
+        color: #fff;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .pay-btn:hover {
+        background-color: #218838;
+    }
+
+    .note {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+
+<div class="payment-container">
+    <h2>Confirm Your Plan</h2>
+
+    <div class="plan-details">
+        <p><strong>Selected Plan:</strong> {{ plan_name }}</p>
+        <p><strong>Price:</strong> ₹{{ plan_price }}</p>
+        <p><strong>Validity:</strong> {{ plan_duration }} Days</p>
+    </div>
+
+    <!-- Hidden form for Razorpay response -->
+    <form id="payment-form" method="POST" action="{% url 'payment_success' %}">
+        {% csrf_token %}
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+        <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+        <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+    </form>
+
+    <!-- Razorpay trigger button -->
+    <button id="rzp-button" class="pay-btn">Pay with Razorpay</button>
+
+    <div class="note">
+        <p>After payment, your membership will be valid for {{ plan_duration }} days.</p>
+    </div>
+</div>
+
+<!-- Razorpay JS -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    const options = {
+        "key": "{{ razorpay_merchant_key }}",
+        "amount": "{{ amount }}",
+        "currency": "{{ currency }}",
+        "name": "GymGenie",
+        "description": "Purchase {{ plan_name }} Plan",
+        "order_id": "{{ razorpay_order_id }}",
+        "handler": function (response){
+            document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+            document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+            document.getElementById('razorpay_signature').value = response.razorpay_signature;
+            document.getElementById('payment-form').submit();
+        },
+        "prefill": {
+            "name": "{{ user.username }}",
+            "email": "{{ user.email }}"
+        },
+        "theme": {
+            "color": "#28a745"
+        }
+    };
+
+    const rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
